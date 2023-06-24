@@ -1,0 +1,42 @@
+<div class="container login-form">
+    <h2 class="login-form-title">Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" formControlName="email" id="email">
+            <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid" class="text-danger">
+                <div *ngIf="loginForm.controls.email.errors?.required">Email is required.</div>
+                <div *ngIf="loginForm.controls.email.errors?.email">Invalid email format.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" formControlName="password" id="password">
+            <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid" class="text-danger">
+                <div *ngIf="loginForm.controls.password.errors?.required">Password is required.</div>
+                <div *ngIf="loginForm.controls.password.errors?.pattern">
+                    Password should contain Minimum eight characters, at least one uppercase letter,one lowercase letter, one number and one special character.
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-outline-primary" [routerLink]="['/registration']">Sign Up</button>
+            </div>
+        </div>
+        <div class="row mt-2" *ngIf="users?.length !==  0 && showErrorMessage">
+            <div class="col">
+                <p class="text-danger text-center">Invalid email and password.</p>
+            </div>
+        </div>
+        <div class="row mt-2" *ngIf="users?.length ==  0 && showErrorMessage">
+            <div class="col">
+                <p class="text-danger text-center">Please sign up.</p>
+            </div>
+        </div>
+
+    </form>
+</div>

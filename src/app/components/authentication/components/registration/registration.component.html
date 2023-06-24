@@ -1,0 +1,97 @@
+<div class="container registration-form">
+    <h2 class="registration-form-title">{{editForm ? 'Update User' : 'Registration Form'}}</h2>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mb-2">
+            <label for="firstName">First Name:<span class="text-danger ms-1">*</span></label>
+            <input type="text" class="form-control" formControlName="firstName" id="firstName" [attr.disabled]="viewMode ? '' : null">
+            <div *ngIf="registrationForm.controls.firstName.touched && registrationForm.controls.firstName.invalid"
+                class="text-danger">
+                <div *ngIf="registrationForm.controls.firstName.errors?.required">First Name is required.</div>
+            </div>
+        </div>
+        <div class="form-group mb-2">
+            <label for="lastName">Last Name:<span class="text-danger ms-1">*</span></label>
+            <input type="text" class="form-control" formControlName="lastName" id="lastName" [attr.disabled]="viewMode ? '' : null">
+            <div *ngIf="registrationForm.controls.lastName.touched && registrationForm.controls.lastName.invalid"
+                class="text-danger">
+                <div *ngIf="registrationForm.controls.lastName.errors?.required">Last Name is required.</div>
+            </div>
+        </div>
+        <div class="form-group mb-2">
+            <label for="middleName">Middle Name:</label>
+            <input type="text" class="form-control" formControlName="middleName" id="middleName" [attr.disabled]="viewMode ? '' : null">
+        </div>
+        <div class="form-group mb-2">
+            <label for="gender" class="me-2">Gender:<span class="text-danger ms-1">*</span></label>
+            <input type="radio" value="Male" formControlName="gender" [attr.disabled]="viewMode ? '' : null"> Male
+            <input type="radio" value="Female" formControlName="gender" [attr.disabled]="viewMode ? '' : null"> Female
+            <div *ngIf="registrationForm.controls.gender.touched && registrationForm.controls.gender.invalid"
+                class="text-danger">
+                <div *ngIf="registrationForm.controls.gender.errors?.required">Gender is required.</div>
+            </div>
+        </div>
+        <div class="form-group mb-2">
+            <label for="education">Education:<span class="text-danger ms-1">*</span></label>
+            <select class="form-control" formControlName="education" id="education" [attr.disabled]="viewMode ? '' : null">
+                <option value="">Select</option>
+                <option value="Primary">Primary</option>
+                <option value="Secondary">Secondary</option>
+                <option value="Higher">Higher</option>
+                <option value="Graduate">Graduate</option>
+                <option value="Post Graduate">Post Graduate</option>
+            </select>
+            <div *ngIf="registrationForm.controls.education.touched && registrationForm.controls.education.invalid"
+                class="text-danger">
+                <div *ngIf="registrationForm.controls.education.errors?.required">Education is required.</div>
+            </div>
+        </div>
+        <div class="form-group mb-2">
+            <label for="email">Email:<span class="text-danger ms-1">*</span></label>
+            <input type="email" class="form-control" formControlName="email" id="email" [attr.disabled]="viewMode ? '' : null">
+            <div *ngIf="registrationForm.controls.email.touched && registrationForm.controls.email.invalid"
+                class="text-danger">
+                <div *ngIf="registrationForm.controls.email.errors?.required">Email is required.</div>
+                <div *ngIf="registrationForm.controls.email.errors?.email">Invalid email format.</div>
+            </div>
+        </div>
+        <div class="form-group mb-2">
+            <label for="password">Password:<span class="text-danger ms-1">*</span></label>
+            <input [type]="editForm ? 'text' : 'password'" class="form-control" formControlName="password" id="password" [attr.disabled]="viewMode ? '' : null">
+            <div *ngIf="registrationForm.controls.password.touched && registrationForm.controls.password.invalid"
+                class="text-danger">
+                <div *ngIf="registrationForm.controls.password.errors?.required">Password is required.</div>
+                <div *ngIf="registrationForm.controls.password.errors?.pattern">
+                    Password should contain Minimum eight characters, at least one uppercase letter,one lowercase letter, one number and one special character.
+                </div>
+            </div>
+        </div>
+        <div class="mb-2" *ngIf="viewMode">
+            <label for="address" class="form-label">Address</label>
+            <textarea id="address" class="form-control" formControlName="address"></textarea>
+            <div *ngIf="registrationForm.controls.address.touched && registrationForm.controls.address.invalid"
+                class="text-danger">
+                <div *ngIf="registrationForm.controls.address.errors?.required">Address is required.</div>
+            </div>
+          </div>
+        
+          <div class="mb-2" *ngIf="viewMode">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input type="text" id="phoneNumber" class="form-control" formControlName="phoneNumber">
+            <div *ngIf="registrationForm.controls.phoneNumber.touched && registrationForm.controls.phoneNumber.invalid"
+                class="text-danger">
+                <div *ngIf="registrationForm.controls.phoneNumber.errors?.required">Phone Number is required.</div>
+            </div>
+          </div>
+        
+          <div class="mb-2" *ngIf="viewMode">
+            <label for="profilePicture" class="form-label">Profile Picture</label>
+            <input type="file" id="profilePicture" class="form-control" formControlName="profilePicture">
+          </div>
+        <div class="row">
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary me-2" [disabled]="!registrationForm.valid">Submit</button>
+                <button type="button" class="btn btn-outline-secondary" [routerLink]="editForm ? ['/userDetails'] : ['/login']">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
